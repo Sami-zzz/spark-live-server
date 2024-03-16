@@ -1,0 +1,38 @@
+{
+  "name": "spark-live-server",
+  "version": "0.0.1",
+  "repository": {},
+  "license": "MIT",
+  "author": "",
+  "scripts": {
+    "build": "rimraf dist && tsc -P ./tsconfig.json || true",
+    "dev": "cross-env NODE_ENV=development NODE_APP_RELEASE_PROJECT_NAME=spark-live-server NODE_APP_RELEASE_PROJECT_ENV=development NODE_APP_RELEASE_PROJECT_PORT=4300 nodemon ./src/index.ts"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "jsonwebtoken": "^9.0.2",
+    "koa": "^2.13.4",
+    "koa-body": "^5.0.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-conditional-get": "^3.0.0",
+    "koa-convert": "^2.0.0",
+    "koa-etag": "^4.0.0",
+    "koa-router": "^10.1.1",
+    "koa-static": "^5.0.0",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.32.1"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.13.4",
+    "@types/koa-bodyparser": "^4.3.4",
+    "@types/koa-router": "^7.4.4",
+    "@types/koa-static": "^4.0.2",
+    "@types/node": "^16.11.9",
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.6.0",
+    "rimraf": "^4.0.5",
+    "ts-node": "^10.4.0",
+    "typescript": "^5.1.6"
+  }
+}
