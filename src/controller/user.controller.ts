@@ -89,6 +89,7 @@ class UserController {
   // 用户注册
   async register(ctx: ParameterizedContext, next) {
     const { body } = ctx.request;
+
     try {
       const flag = await userService.findByUsername(body.username);
       if (flag) {
@@ -101,6 +102,8 @@ class UserController {
           username: body.username,
           password: body.password,
           push_key: Math.random().toString().slice(2, 8),
+          status: 1,
+          role_id: 2,
         });
         // 用户注册时，自动绑定一个流地址
         res.update({

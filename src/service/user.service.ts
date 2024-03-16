@@ -12,7 +12,7 @@ class UserService {
     return result;
   }
 
-  /** 查找用户 */
+  /** 查找此用户名是否存在 */
   async findByUsername(username: IUser['username']) {
     const result = await userModel.findOne({
       where: { username },
