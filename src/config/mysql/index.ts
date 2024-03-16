@@ -34,6 +34,10 @@ export async function connectMysql() {
   }
   try {
     await import('../../model/user.model');
+    await import('../../model/role.model');
+    await import('../../model/permission.model');
+    await import('../../model/role_permission.model');
+
     // https://www.sequelize.cn/core-concepts/model-basics#%E4%B8%80%E6%AC%A1%E5%90%8C%E6%AD%A5%E6%89%80%E6%9C%89%E6%A8%A1%E5%9E%8B
     await sequelizeInst.sync({ alter: true });
     // User.sync() - 如果表不存在,则创建该表(如果已经存在,则不执行任何操作)

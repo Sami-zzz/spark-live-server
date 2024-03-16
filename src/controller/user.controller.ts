@@ -60,6 +60,7 @@ class UserController {
     await next();
   }
 
+  // 用户登录
   async login(ctx: ParameterizedContext, next) {
     const { username, password } = ctx.request.body;
     if (!username || !password) {
@@ -85,6 +86,7 @@ class UserController {
     await next();
   }
 
+  // 用户注册
   async register(ctx: ParameterizedContext, next) {
     const { body } = ctx.request;
     try {

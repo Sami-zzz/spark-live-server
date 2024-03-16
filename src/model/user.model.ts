@@ -39,8 +39,11 @@ const model = sequelizeInst.define<UserModel>(
     pull_url: {
       type: DataTypes.STRING(100),
     },
-    remark: {
-      type: DataTypes.STRING(100),
+    role_id: {
+      type: DataTypes.INTEGER,
+    },
+    status: {
+      type: DataTypes.INTEGER,
     },
   },
   {

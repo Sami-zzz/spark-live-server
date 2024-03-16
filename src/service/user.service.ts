@@ -6,6 +6,23 @@ import { userModel } from '../model/user.model';
 const { Op } = Sequelize;
 
 class UserService {
+  /** 创建用户 */
+  async create(data: IUser) {
+    const result = await userModel.create(data);
+    return result;
+  }
+
+  /** 查找用户 */
+  async findByUsername(username: IUser['username']) {
+    const result = await userModel.findOne({
+      where: { username },
+      attributes: {
+        exclude: ['token', 'push_key', 'password'],
+      },
+    });
+    return result;
+  }
+
   /** 用户是否存在 */
   async isExist(ids: number[]) {
     const res = await userModel.count({
@@ -67,23 +84,6 @@ class UserService {
     const args = { ...data };
     delete args.id;
     const result = await userModel.update(args, { where: { id } });
-    return result;
-  }
-
-  /** 创建用户 */
-  async create(data: IUser) {
-    const result = await userModel.create(data);
-    return result;
-  }
-
-  /** 查找用户 */
-  async findByUsername(username: IUser['username']) {
-    const result = await userModel.findOne({
-      where: { username },
-      attributes: {
-        exclude: ['token', 'push_key', 'password'],
-      },
-    });
     return result;
   }
 

@@ -8,8 +8,12 @@ export interface IUser {
   password?: number;
   /** token */
   token?: string;
-  /** 备注 */
-  remark?: string;
+
+  /** 角色 */
+  role_id?: number;
+  /** 状态 */
+  status?: number;
+
   /** 推流秘钥 */
   push_key?: string;
   /** 推流地址 */
@@ -20,4 +24,19 @@ export interface IUser {
   created_at?: string;
   updated_at?: string;
   deleted_at?: string;
+}
+
+export interface IRole {
+  id?: number;
+  role_name: string;
+}
+
+export interface IPermission {
+  id?: number;
+  permission_name: string;
+}
+
+export interface IRolePermission {
+  roleId?: number;
+  permissionId: number;
 }
