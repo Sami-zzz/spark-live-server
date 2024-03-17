@@ -23,6 +23,16 @@ class UserService {
     return result;
   }
 
+  async login({ username, password }) {
+    const result = await userModel.findOne({
+      where: { username, password },
+      attributes: {
+        exclude: ['token', 'password'],
+      },
+    });
+    return result;
+  }
+
   /** 用户是否存在 */
   async isExist(ids: number[]) {
     const res = await userModel.count({
@@ -63,16 +73,6 @@ class UserService {
       where: { id, push_key },
       attributes: {
         exclude: ['token', 'push_key', 'password'],
-      },
-    });
-    return result;
-  }
-
-  async login({ username, password }) {
-    const result = await userModel.findOne({
-      where: { username, password },
-      attributes: {
-        exclude: ['token', 'password'],
       },
     });
     return result;

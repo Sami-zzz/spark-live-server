@@ -4,6 +4,7 @@ import userService from '../service/user.service';
 import { jwtVerify, signJwt } from '../utils/jwt';
 
 class UserController {
+  // 获取用户信息
   async getUserInfo(ctx: ParameterizedContext, next) {
     const { token } = ctx.request.body;
     if (!token) {
