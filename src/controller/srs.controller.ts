@@ -49,6 +49,11 @@ class SRSController {
       await next();
     }
   };
+
+  unPublish = async (ctx: ParameterizedContext, next) => {
+    console.log('结束直播回调执行');
+    await next();
+  };
 }
 
 export default new SRSController();
