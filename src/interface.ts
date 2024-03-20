@@ -28,15 +28,22 @@ export interface IUser {
 
 export interface IRole {
   id?: number;
-  role_name: string;
+  role_name?: string;
 }
 
 export interface IPermission {
   id?: number;
-  permission_name: string;
+  permission_name?: string;
 }
 
 export interface IRolePermission {
   roleId?: number;
-  permissionId: number;
+  permissionId?: number;
+}
+
+export interface ILiveroom {
+  id?: number;
+  user_id?: number;
+  pull_url: string;
+  open_time: string;
 }

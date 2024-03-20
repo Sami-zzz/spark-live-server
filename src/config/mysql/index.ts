@@ -37,6 +37,7 @@ export async function connectMysql() {
     await import('../../model/role.model');
     await import('../../model/permission.model');
     await import('../../model/role_permission.model');
+    await import('../../model/liveroom.model');
 
     // https://www.sequelize.cn/core-concepts/model-basics#%E4%B8%80%E6%AC%A1%E5%90%8C%E6%AD%A5%E6%89%80%E6%9C%89%E6%A8%A1%E5%9E%8B
     await sequelizeInst.sync({ alter: true });

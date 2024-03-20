@@ -12,14 +12,13 @@ class SRSController {
     ctx.body = srsRes.data;
     await next();
   }
-
+  // 推流鉴权
   onPublish = async (ctx: ParameterizedContext, next) => {
     // https://ossrs.net/lts/zh-cn/docs/v5/doc/http-callback#nodejs-koa-example
     // code等于数字0表示成功，其他错误码代表失败。
     // @ts-ignore
     const { body }: { body: ISrsCb } = ctx.request;
     console.log(`on_publish参数`, body);
-
     const roomId = Number(body.stream);
 
     if (!roomId) {
@@ -51,7 +50,8 @@ class SRSController {
   };
 
   unPublish = async (ctx: ParameterizedContext, next) => {
-    console.log('结束直播回调执行');
+    const { body } = ctx.request;
+    console.log('on_unpublish参数', body);
     await next();
   };
 }

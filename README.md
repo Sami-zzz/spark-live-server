@@ -15,7 +15,7 @@ npm run dev
 LOCAL_DOCKER_SRS_PATH=C:\\Users\\aaa\\Desktop\\docker\\srs \
 && docker run -d --rm \
 --name sparklive-srs \
---env CANDIDATE='192.168.0.140' \
+--env CANDIDATE='192.168.0.139' \
 -p 1935:1935 \
 -p 5001:8080 \
 -p 1985:1985 \
