@@ -27,11 +27,14 @@ const model = sequelizeInst.define<ILiveroomModel>(
     user_id: {
       type: DataTypes.INTEGER,
     },
+    title: {
+      type: DataTypes.STRING(50),
+    },
     pull_url: {
       type: DataTypes.STRING(100),
     },
     open_time: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
     },
   },
   {
