@@ -23,6 +23,14 @@ class liveroomService {
     });
     return result;
   }
+
+  /** 获得全部直播间 */
+  async findAllRoom() {
+    const results = await liveroomModel.findAll({
+      attributes: ['user_id', 'pull_url', 'title', 'open_time'],
+    });
+    return results;
+  }
 }
 
 export default new liveroomService();

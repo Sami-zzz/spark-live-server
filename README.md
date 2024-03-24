@@ -33,3 +33,7 @@ LOCAL_DOCKER_MYSQL_PATH=C:\\Users\\aaa\\Desktop\\docker\\mysql \
 -v $LOCAL_DOCKER_MYSQL_PATH/conf/my.cnf:/etc/my.cnf \
 -v $LOCAL_DOCKER_MYSQL_PATH/data:/var/lib/mysql/ \
 mysql:8.0
+
+ffmpeg -re -stream_loop -1 -i D:\\live-project\\todo\\spark-live-server\\src\\assets\\1.mp4 -vcodec copy -acodec copy -f flv 'rtmp://localhost//stream/1?push_key=638777&title=admin&uid=1'
+
+flv 拉流地址： http://192.168.0.139:5001/stream/1

@@ -37,7 +37,7 @@ class SRSController {
       const paramsPublishTitle = params.get('title');
       console.log(params, '-');
       if (!paramsPublishKey || !paramsPublishUid || !paramsPublishTitle) {
-        console.log(`[on_publish] 推流鉴权失败`);
+        console.log(`[on_publish] 推流鉴权失败1`);
         ctx.body = { code: 1, msg: '[on_publish] fail, auth fail' };
       } else {
         let res = await userService.findByPush({
@@ -45,7 +45,7 @@ class SRSController {
           push_key: paramsPublishKey,
         });
         if (!res) {
-          console.log(`[on_publish] 推流鉴权失败`);
+          console.log(`[on_publish] 推流鉴权失败2`);
           ctx.body = { code: 1, msg: '[on_publish] fail, auth fail' };
         } else {
           console.log(`[on_publish] 推流鉴权成功`);
@@ -70,6 +70,29 @@ class SRSController {
     const roomId = Number(body.stream);
     await liveroomService.delete(roomId);
     console.log('删除直播间');
+    await next();
+  };
+
+  getRoomList = async (ctx: ParameterizedContext, next) => {
+    const roomlist = await liveroomService.findAllRoom();
+    ctx.body = {
+      code: 200,
+      data: roomlist,
+      msg: 'ok',
+    };
+    await next();
+  };
+
+  getRoom = async (ctx: ParameterizedContext, next) => {
+    const { body } = ctx.request;
+    console.log('getroom', body);
+    const user_id = Number(body.user_id);
+    const room = await liveroomService.find(user_id);
+    ctx.body = {
+      code: 200,
+      data: room,
+      msg: 'ok',
+    };
     await next();
   };
 }
