@@ -77,7 +77,9 @@ class SRSController {
     const roomlist = await liveroomService.findAllRoom();
     ctx.body = {
       code: 200,
-      data: roomlist,
+      data: {
+        list: roomlist,
+      },
       msg: 'ok',
     };
     await next();
