@@ -61,6 +61,37 @@ class UserController {
     await next();
   }
 
+  async updatePassword(ctx: ParameterizedContext, next) {
+    const { body } = ctx.request;
+    const id = body.id;
+    const userName = body.userName;
+    const password = body.password;
+    const newPassword = body.newPassword;
+    let res = await userService.find(Number(id as string));
+    if (!res || res.username != userName) {
+      ctx.body = {
+        code: 400,
+        msg: '用户不存在',
+      };
+    } else {
+      if (password != res.password) {
+        ctx.body = {
+          code: 401,
+          msg: '密码不正确',
+        };
+      } else {
+        res.update({
+          password: newPassword,
+        });
+        ctx.body = {
+          code: 200,
+          msg: 'ok',
+        };
+      }
+    }
+    await next();
+  }
+
   // 用户登录
   async login(ctx: ParameterizedContext, next) {
     const { username, password } = ctx.request.body;

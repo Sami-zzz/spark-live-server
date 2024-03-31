@@ -61,7 +61,7 @@ class UserService {
     const result = await userModel.findOne({
       where: { id },
       attributes: {
-        exclude: ['token', 'push_key', 'password'],
+        exclude: ['token', 'push_key'],
       },
     });
     return result;

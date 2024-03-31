@@ -10,4 +10,6 @@ userRouter.post('/register', userController.register);
 
 userRouter.post('/login', userController.login);
 
+userRouter.post('/update_password', userController.updatePassword);
+
 userRouter.get('/find/:id', userController.find);
