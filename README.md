@@ -15,7 +15,7 @@ npm run dev
 LOCAL_DOCKER_SRS_PATH=C:\\Users\\aaa\\Desktop\\docker\\srs \
 && docker run -d --rm \
 --name sparklive-srs \
---env CANDIDATE='192.168.0.139' \
+--env CANDIDATE='192.168.31.51' \
 -p 1935:1935 \
 -p 5001:8080 \
 -p 1985:1985 \
@@ -24,6 +24,8 @@ LOCAL_DOCKER_SRS_PATH=C:\\Users\\aaa\\Desktop\\docker\\srs \
 -v $LOCAL_DOCKER_SRS_PATH\\objs:/usr/local/srs/objs/ \
 registry.cn-hangzhou.aliyuncs.com/ossrs/srs:5 objs/srs \
 -c conf/rtc2rtmp.conf
+
+// 若 IP 更改，修改 srs 启动脚本，常量 IP，本地 docker 配置文件 rtc2rtmp.conf
 
 LOCAL_DOCKER_MYSQL_PATH=C:\\Users\\aaa\\Desktop\\docker\\mysql \
 && docker run -d \
@@ -34,6 +36,5 @@ LOCAL_DOCKER_MYSQL_PATH=C:\\Users\\aaa\\Desktop\\docker\\mysql \
 -v $LOCAL_DOCKER_MYSQL_PATH/data:/var/lib/mysql/ \
 mysql:8.0
 
+// ffmpeg 推流视频
 ffmpeg -re -stream_loop -1 -i D:\\live-project\\todo\\spark-live-server\\src\\assets\\1.mp4 -vcodec copy -acodec copy -f flv 'rtmp://localhost//stream/1?push_key=638777&title=admin&uid=1'
-
-flv 拉流地址： http://192.168.0.139:5001/stream/1

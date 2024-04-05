@@ -48,3 +48,10 @@ export interface ILiveroom {
   pull_url?: string;
   open_time?: string;
 }
+
+export interface IGift {
+  id?: number;
+  gift_name?: string;
+  price?: string;
+  info?: string;
+}
