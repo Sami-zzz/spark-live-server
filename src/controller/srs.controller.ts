@@ -87,7 +87,6 @@ class SRSController {
 
   getRoom = async (ctx: ParameterizedContext, next) => {
     const { body } = ctx.request;
-    console.log('getroom', body);
     const user_id = Number(body.user_id);
     const room = await liveroomService.find(user_id);
     ctx.body = {

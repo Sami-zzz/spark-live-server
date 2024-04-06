@@ -52,6 +52,17 @@ export interface ILiveroom {
 export interface IGift {
   id?: number;
   gift_name?: string;
-  price?: string;
+  price?: number;
   info?: string;
+}
+
+export interface IOrder {
+  id?: number;
+  order_number?: string;
+  user_id?: number;
+  live_id?: number;
+  gift_id?: number;
+  gift_name?: string;
+  price?: number;
+  send_time?: string;
 }

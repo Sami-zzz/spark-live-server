@@ -9,6 +9,8 @@ import { PROJECT_ENV, PROJECT_NAME, PROJECT_PORT } from './constant';
 import { srsRouter } from './router/srs.router';
 import { userRouter } from './router/user.router';
 
+import { orderRouter } from './router/order.router';
+
 const port = +PROJECT_PORT;
 // https://koa.bootcss.com
 const app = new Koa();
@@ -31,6 +33,7 @@ router.get('/', async (ctx, next) => {
 app.use(router.routes()).use(router.allowedMethods());
 app.use(srsRouter.routes()).use(srsRouter.allowedMethods());
 app.use(userRouter.routes()).use(userRouter.allowedMethods());
+app.use(orderRouter.routes()).use(orderRouter.allowedMethods());
 
 console.log(`项目启动成功！`);
 console.log(`监听端口: ${port}`);
