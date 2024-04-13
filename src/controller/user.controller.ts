@@ -118,6 +118,33 @@ class UserController {
     await next();
   }
 
+  // 管理员登录
+  async loginAdmin(ctx: ParameterizedContext, next) {
+    const { username, password } = ctx.request.body;
+    if (!username || !password) {
+      ctx.body = {
+        code: 400,
+      };
+    } else {
+      let res = await userService.login({ username, password });
+
+      if (res?.role_id === 1) {
+        let token = signJwt({ userInfo: res, exp: 24 });
+        await userService.update({ id: res.id, token });
+        ctx.body = {
+          code: 200,
+          token,
+        };
+      } else {
+        ctx.body = {
+          code: 400,
+        };
+      }
+    }
+
+    await next();
+  }
+
   // 用户注册
   async register(ctx: ParameterizedContext, next) {
     const { body } = ctx.request;
@@ -136,11 +163,12 @@ class UserController {
           push_key: Math.random().toString().slice(2, 8),
           status: 1,
           role_id: 2,
+          address: body.address,
+          email: body.email,
         });
         // 用户注册时，自动绑定一个流地址
         res.update({
           push_url: 'webrtc://' + IP + ':5001/stream/' + res.id,
-          pull_url: 'http://' + IP + ':5001/stream/' + res.id,
         });
         ctx.body = {
           code: 200,

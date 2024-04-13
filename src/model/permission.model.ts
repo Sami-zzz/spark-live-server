@@ -15,26 +15,16 @@ interface PermissionModel
     >,
     IPermission {}
 
-const model = sequelizeInst.define<PermissionModel>(
-  'permission',
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      allowNull: false,
-      autoIncrement: true,
-    },
-    permission_name: {
-      type: DataTypes.STRING(20),
-    },
+const model = sequelizeInst.define<PermissionModel>('permission', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    allowNull: false,
+    autoIncrement: true,
   },
-  {
-    paranoid: true,
-    freezeTableName: true,
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
-    deletedAt: 'deleted_at',
-  }
-);
+  permission_name: {
+    type: DataTypes.STRING(20),
+  },
+});
 
 export const permissionModel = model;

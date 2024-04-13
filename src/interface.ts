@@ -6,6 +6,8 @@ export interface IUser {
   username?: string;
   /** 密码 */
   password?: number;
+  address?: string;
+  email?: string;
   /** token */
   token?: string;
 
@@ -18,8 +20,6 @@ export interface IUser {
   push_key?: string;
   /** 推流地址 */
   push_url?: string;
-  /** 拉流地址 */
-  pull_url?: string;
 
   created_at?: string;
   updated_at?: string;
