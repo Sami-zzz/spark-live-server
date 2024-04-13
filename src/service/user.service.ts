@@ -94,6 +94,22 @@ class UserService {
     });
     return result;
   }
+
+  /** 管理员 */
+  // 获取所有用户
+  async getUserList({ pageNo, pageSize, keyword }) {
+    const result = await userModel.findAndCountAll({
+      where: {
+        role_id: 2,
+        username: {
+          [Op.like]: '%' + keyword + '%',
+        },
+      },
+      offset: (pageNo - 1) * pageSize,
+      limit: pageSize,
+    });
+    return result;
+  }
 }
 
 export default new UserService();

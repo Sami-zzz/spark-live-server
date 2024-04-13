@@ -118,33 +118,6 @@ class UserController {
     await next();
   }
 
-  // 管理员登录
-  async loginAdmin(ctx: ParameterizedContext, next) {
-    const { username, password } = ctx.request.body;
-    if (!username || !password) {
-      ctx.body = {
-        code: 400,
-      };
-    } else {
-      let res = await userService.login({ username, password });
-
-      if (res?.role_id === 1) {
-        let token = signJwt({ userInfo: res, exp: 24 });
-        await userService.update({ id: res.id, token });
-        ctx.body = {
-          code: 200,
-          token,
-        };
-      } else {
-        ctx.body = {
-          code: 400,
-        };
-      }
-    }
-
-    await next();
-  }
-
   // 用户注册
   async register(ctx: ParameterizedContext, next) {
     const { body } = ctx.request;
@@ -180,6 +153,56 @@ class UserController {
       ctx.body = {
         code: 400,
         error,
+      };
+    }
+    await next();
+  }
+
+  /** 管理员 */
+
+  // 管理员登录
+  async loginAdmin(ctx: ParameterizedContext, next) {
+    const { username, password } = ctx.request.body;
+    if (!username || !password) {
+      ctx.body = {
+        code: 400,
+      };
+    } else {
+      let res = await userService.login({ username, password });
+      if (res?.role_id === 1) {
+        let token = signJwt({ userInfo: res, exp: 24 });
+        await userService.update({ id: res.id, token });
+        ctx.body = {
+          code: 200,
+          token,
+        };
+      } else {
+        ctx.body = {
+          code: 400,
+        };
+      }
+    }
+
+    await next();
+  }
+
+  // 获取所有用户
+  async getUserList(ctx: ParameterizedContext, next) {
+    const { pageNo, pageSize, keyword } = ctx.request.body;
+    const res = await userService.getUserList({
+      pageNo,
+      pageSize,
+      keyword,
+    });
+    if (res) {
+      ctx.body = {
+        code: 200,
+        data: res,
+      };
+    } else {
+      ctx.body = {
+        code: 500,
+        msg: '失败',
       };
     }
     await next();
