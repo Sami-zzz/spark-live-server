@@ -1,6 +1,7 @@
 import { ParameterizedContext } from 'koa';
 import { IP } from '../constant';
 import userService from '../service/user.service';
+import userRecordService from '../service/user_record.service';
 import { jwtVerify, signJwt } from '../utils/jwt';
 
 class UserController {
@@ -190,6 +191,105 @@ class UserController {
   async getUserList(ctx: ParameterizedContext, next) {
     const { pageNo, pageSize, keyword } = ctx.request.body;
     const res = await userService.getUserList({
+      pageNo,
+      pageSize,
+      keyword,
+    });
+    if (res) {
+      ctx.body = {
+        code: 200,
+        data: res,
+      };
+    } else {
+      ctx.body = {
+        code: 500,
+        msg: '失败',
+      };
+    }
+    await next();
+  }
+
+  // 重置密码
+  async resetPassword(ctx: ParameterizedContext, next) {
+    const { id } = ctx.params;
+    if (!id) {
+      ctx.body = {
+        code: 400,
+        msg: '失败',
+      };
+    } else {
+      let res = await userService.find(Number(id as string));
+      if (res) {
+        res.update({
+          password: 123456,
+        });
+        ctx.body = {
+          code: 200,
+          msg: '成功',
+        };
+      } else {
+        ctx.body = {
+          code: 400,
+          msg: '失败',
+        };
+      }
+    }
+    await next();
+  }
+
+  async deleteUser(ctx: ParameterizedContext, next) {
+    const { id } = ctx.params;
+    if (!id) {
+      ctx.body = {
+        code: 400,
+        msg: '失败',
+      };
+    } else {
+      let res = await userService.delete(Number(id as string));
+      if (res) {
+        ctx.body = {
+          code: 200,
+          msg: '成功',
+        };
+      } else {
+        ctx.body = {
+          code: 400,
+          msg: '失败',
+        };
+      }
+    }
+    await next();
+  }
+
+  async handleUser(ctx: ParameterizedContext, next) {
+    const { user_id, username, type, reason } = ctx.request.body;
+    let res = await userService.find(Number(user_id as string));
+    if (!res) {
+      ctx.body = {
+        code: 400,
+        msg: '用户不存在',
+      };
+    } else {
+      await res.update({
+        status: type,
+      });
+      await userRecordService.create({
+        user_id,
+        username,
+        type,
+        reason,
+      });
+      ctx.body = {
+        code: 200,
+        msg: 'ok',
+      };
+    }
+    await next();
+  }
+
+  async getUserRecordList(ctx: ParameterizedContext, next) {
+    const { pageNo, pageSize, keyword } = ctx.request.body;
+    const res = await userRecordService.getUserRecordList({
       pageNo,
       pageSize,
       keyword,

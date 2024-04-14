@@ -60,9 +60,19 @@ export interface IOrder {
   id?: number;
   order_number?: string;
   user_id?: number;
+  user_name?: string;
   live_id?: number;
+  live_name?: string;
   gift_id?: number;
   gift_name?: string;
   price?: number;
   send_time?: string;
+}
+
+export interface IUserRecord {
+  id?: number;
+  user_id?: number;
+  username?: string;
+  type?: number;
+  reason?: string;
 }

@@ -1,6 +1,8 @@
+import Sequelize from 'sequelize';
 import { IOrder } from '../interface';
 import { orderModel } from '../model/order.model';
 
+const { Op } = Sequelize;
 class orderService {
   /** 新增订单 */
   async create(data: IOrder) {
@@ -27,6 +29,23 @@ class orderService {
       where: { live_id },
     });
     return results;
+  }
+
+  async getOrderList({ pageNo, pageSize, user_name, live_name }) {
+    const result = await orderModel.findAndCountAll({
+      where: {
+        user_name: {
+          [Op.like]: '%' + user_name + '%',
+        },
+        live_name: {
+          [Op.like]: '%' + live_name + '%',
+        },
+      },
+
+      offset: (pageNo - 1) * pageSize,
+      limit: pageSize,
+    });
+    return result;
   }
 }
 

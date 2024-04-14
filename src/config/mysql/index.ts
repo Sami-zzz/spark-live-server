@@ -40,6 +40,7 @@ export async function connectMysql() {
     await import('../../model/liveroom.model');
     await import('../../model/gift.model');
     await import('../../model/order.model');
+    await import('../../model/user_record.model');
 
     // https://www.sequelize.cn/core-concepts/model-basics#%E4%B8%80%E6%AC%A1%E5%90%8C%E6%AD%A5%E6%89%80%E6%9C%89%E6%A8%A1%E5%9E%8B
     await sequelizeInst.sync({ alter: true });

@@ -28,8 +28,14 @@ const model = sequelizeInst.define<IOrderModel>('order', {
   user_id: {
     type: DataTypes.INTEGER,
   },
+  user_name: {
+    type: DataTypes.STRING(10),
+  },
   live_id: {
     type: DataTypes.INTEGER,
+  },
+  live_name: {
+    type: DataTypes.STRING(10),
   },
   gift_id: {
     type: DataTypes.INTEGER,

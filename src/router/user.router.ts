@@ -17,3 +17,11 @@ userRouter.get('/find/:id', userController.find);
 userRouter.post('/login_admin', userController.loginAdmin);
 
 userRouter.post('/getuserlist_admin', userController.getUserList);
+
+userRouter.get('/reset_pwd_admin/:id', userController.resetPassword);
+
+userRouter.get('/delete_admin/:id', userController.deleteUser);
+
+userRouter.post('/change_user_admin', userController.handleUser);
+
+userRouter.post('/getuserrecordlist_admin', userController.getUserRecordList);
