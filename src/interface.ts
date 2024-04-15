@@ -44,9 +44,20 @@ export interface IRolePermission {
 export interface ILiveroom {
   id?: number;
   user_id?: number;
+  user_name: string;
   title?: string;
   pull_url?: string;
   open_time?: string;
+}
+
+export interface IHistoryLive {
+  id?: number;
+  user_id?: number;
+  user_name: string;
+  title?: string;
+  pull_url?: string;
+  open_time?: string;
+  end_time?: string;
 }
 
 export interface IGift {

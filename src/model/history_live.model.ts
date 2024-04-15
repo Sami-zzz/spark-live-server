@@ -6,16 +6,16 @@ import {
 } from 'sequelize';
 
 import { sequelizeInst } from '../config/mysql';
-import { ILiveroom } from '../interface';
+import { IHistoryLive } from '../interface';
 
-interface ILiveroomModel
+interface IHistoryLiveModel
   extends Model<
-      InferAttributes<ILiveroomModel>,
-      InferCreationAttributes<ILiveroomModel>
+      InferAttributes<IHistoryLiveModel>,
+      InferCreationAttributes<IHistoryLiveModel>
     >,
-    ILiveroom {}
+    IHistoryLive {}
 
-const model = sequelizeInst.define<ILiveroomModel>('liveroom', {
+const model = sequelizeInst.define<IHistoryLiveModel>('history_live', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -37,6 +37,9 @@ const model = sequelizeInst.define<ILiveroomModel>('liveroom', {
   open_time: {
     type: DataTypes.STRING(100),
   },
+  end_time: {
+    type: DataTypes.STRING(100),
+  },
 });
 
-export const liveroomModel = model;
+export const historyLiveModel = model;

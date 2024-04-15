@@ -6,7 +6,7 @@ export enum PROJECT_ENV_ENUM {
   beta = 'beta',
 }
 
-export const IP = '192.168.31.51';
+export const IP = '192.168.0.139';
 
 export const PROJECT_NAME = process.env.NODE_APP_RELEASE_PROJECT_NAME as string;
 export const PROJECT_ENV = process.env

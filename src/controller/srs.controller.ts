@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { ParameterizedContext } from 'koa';
 import { IP } from '../constant';
+import historyLiveService from '../service/history_live.service';
 import liveroomService from '../service/liveroom.service';
 import userService from '../service/user.service';
 class SRSController {
@@ -50,12 +51,24 @@ class SRSController {
         } else {
           console.log(`[on_publish] 推流鉴权成功`);
           ctx.body = { code: 0, msg: '[on_publish] success' };
-
+          const userres = await userService.find(
+            Number(paramsPublishUid as string)
+          );
           await liveroomService.create({
             user_id: Number(paramsPublishUid),
+            user_name: userres?.username!,
             title: paramsPublishTitle,
             pull_url: 'http://' + IP + ':5001/stream/' + paramsPublishUid,
-            open_time: Math.floor(Date.now() / 1000) + '',
+            open_time: Date.now() + '',
+          });
+
+          await historyLiveService.create({
+            user_id: Number(paramsPublishUid),
+            user_name: userres?.username!,
+            title: paramsPublishTitle,
+            pull_url: 'http://' + IP + ':5001/stream/' + paramsPublishUid,
+            open_time: Date.now() + '',
+            end_time: '',
           });
           console.log('新增直播间');
         }
@@ -66,9 +79,13 @@ class SRSController {
 
   unPublish = async (ctx: ParameterizedContext, next) => {
     const { body } = ctx.request;
-    console.log('on_unpublish参数', body);
     const roomId = Number(body.stream);
     await liveroomService.delete(roomId);
+    let res = await historyLiveService.find(roomId);
+    console.log(res);
+    await res?.update({
+      end_time: Date.now() + '',
+    });
     console.log('删除直播间');
     await next();
   };
@@ -96,6 +113,48 @@ class SRSController {
     };
     await next();
   };
+
+  async getLiveroomList(ctx: ParameterizedContext, next) {
+    const { pageNo, pageSize, keyword } = ctx.request.body;
+    const res = await liveroomService.getLiveroomList({
+      pageNo,
+      pageSize,
+      keyword,
+    });
+    if (res) {
+      ctx.body = {
+        code: 200,
+        data: res,
+      };
+    } else {
+      ctx.body = {
+        code: 500,
+        msg: '失败',
+      };
+    }
+    await next();
+  }
+
+  async getHistoryLiveList(ctx: ParameterizedContext, next) {
+    const { pageNo, pageSize, keyword } = ctx.request.body;
+    const res = await historyLiveService.getHistoryLiveList({
+      pageNo,
+      pageSize,
+      keyword,
+    });
+    if (res) {
+      ctx.body = {
+        code: 200,
+        data: res,
+      };
+    } else {
+      ctx.body = {
+        code: 500,
+        msg: '失败',
+      };
+    }
+    await next();
+  }
 }
 
 export default new SRSController();

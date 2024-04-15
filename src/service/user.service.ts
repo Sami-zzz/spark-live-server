@@ -1,9 +1,7 @@
 import Sequelize from 'sequelize';
-
+const { Op } = Sequelize;
 import { IUser } from '../interface';
 import { userModel } from '../model/user.model';
-
-const { Op } = Sequelize;
 
 class UserService {
   /** 创建用户 */

@@ -1,6 +1,7 @@
+import Sequelize from 'sequelize';
 import { ILiveroom } from 'src/interface';
 import { liveroomModel } from '../model/liveroom.model';
-
+const { Op } = Sequelize;
 class liveroomService {
   /** 新增直播间 */
   async create(data: ILiveroom) {
@@ -30,6 +31,19 @@ class liveroomService {
       attributes: ['user_id', 'pull_url', 'title', 'open_time'],
     });
     return results;
+  }
+
+  async getLiveroomList({ pageNo, pageSize, keyword }) {
+    const result = await liveroomModel.findAndCountAll({
+      where: {
+        user_name: {
+          [Op.like]: '%' + keyword + '%',
+        },
+      },
+      offset: (pageNo - 1) * pageSize,
+      limit: pageSize,
+    });
+    return result;
   }
 }
 
