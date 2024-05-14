@@ -16,7 +16,7 @@ class orderController {
     const user_name = userres!.username;
     const liveres = await userService.find(Number(live_id as string));
     const live_name = liveres!.username;
-    const send_time = Math.floor(Date.now() / 1000) + '';
+    const send_time = Date.now() + '';
     const order_number = send_time + user_id + live_id;
     let res = await orderService.create({
       order_number,
@@ -126,6 +126,16 @@ class orderController {
         msg: '失败',
       };
     }
+    await next();
+  }
+
+  async getGroup(ctx: ParameterizedContext, next) {
+    const res = await orderService.getOrderGroup();
+    ctx.body = {
+      code: 200,
+      res: res,
+      msg: 'ok',
+    };
     await next();
   }
 }

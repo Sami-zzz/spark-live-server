@@ -1,5 +1,8 @@
 import { ParameterizedContext } from 'koa';
 import { IP } from '../constant';
+import historyLiveService from '../service/history_live.service';
+import liveroomService from '../service/liveroom.service';
+import orderService from '../service/order.service';
 import userService from '../service/user.service';
 import userRecordService from '../service/user_record.service';
 import { jwtVerify, signJwt } from '../utils/jwt';
@@ -305,6 +308,31 @@ class UserController {
         msg: '失败',
       };
     }
+    await next();
+  }
+
+  async getCount(ctx: ParameterizedContext, next) {
+    const userCount = await userService.getUserCount();
+    const historyCount = await historyLiveService.getHistoryCount();
+    const liveCount = await liveroomService.getLiveCount();
+    const orderCount = await orderService.getOrderCount();
+    ctx.body = {
+      code: 200,
+      res: [userCount, historyCount, liveCount, orderCount],
+      msg: 'ok',
+    };
+
+    await next();
+  }
+
+  async getGroup(ctx: ParameterizedContext, next) {
+    const res = await userService.getUserGroup();
+
+    ctx.body = {
+      code: 200,
+      res: res,
+      msg: 'ok',
+    };
     await next();
   }
 }

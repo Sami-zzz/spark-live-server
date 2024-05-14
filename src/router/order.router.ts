@@ -13,3 +13,5 @@ orderRouter.post('/get_my_order', orderController.getOrderByLive);
 orderRouter.post('/getgiftlist_admin', orderController.getGiftList);
 
 orderRouter.post('/getorderlist_admin', orderController.getOrderList);
+
+orderRouter.get('/group', orderController.getGroup);

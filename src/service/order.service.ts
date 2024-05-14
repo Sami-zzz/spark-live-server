@@ -47,6 +47,23 @@ class orderService {
     });
     return result;
   }
+
+  async getOrderCount() {
+    const result = await orderModel.count();
+    return result;
+  }
+
+  async getOrderGroup() {
+    const result = await orderModel.findAll({
+      attributes: [
+        'gift_id',
+        [Sequelize.fn('COUNT', Sequelize.col('gift_id')), 'total'],
+        'gift_name',
+      ],
+      group: 'gift_id',
+    });
+    return result;
+  }
 }
 
 export default new orderService();

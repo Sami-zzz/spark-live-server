@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
-const { Op } = Sequelize;
 import { IUser } from '../interface';
 import { userModel } from '../model/user.model';
+const { Op } = Sequelize;
 
 class UserService {
   /** 创建用户 */
@@ -105,6 +105,26 @@ class UserService {
       },
       offset: (pageNo - 1) * pageSize,
       limit: pageSize,
+    });
+    return result;
+  }
+
+  async getUserCount() {
+    const result = await userModel.count({
+      where: {
+        role_id: 2,
+      },
+    });
+    return result;
+  }
+
+  async getUserGroup() {
+    const result = await userModel.findAll({
+      attributes: [
+        'status',
+        [Sequelize.fn('COUNT', Sequelize.col('status')), 'total'],
+      ],
+      group: 'status',
     });
     return result;
   }

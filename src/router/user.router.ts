@@ -25,3 +25,7 @@ userRouter.get('/delete_admin/:id', userController.deleteUser);
 userRouter.post('/change_user_admin', userController.handleUser);
 
 userRouter.post('/getuserrecordlist_admin', userController.getUserRecordList);
+
+userRouter.get('/count', userController.getCount);
+
+userRouter.get('/group', userController.getGroup);

@@ -42,6 +42,11 @@ class historyService {
     });
     return result;
   }
+
+  async getHistoryCount() {
+    const result = await historyLiveModel.count();
+    return result;
+  }
 }
 
 export default new historyService();

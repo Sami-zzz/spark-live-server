@@ -45,6 +45,11 @@ class liveroomService {
     });
     return result;
   }
+
+  async getLiveCount() {
+    const result = await liveroomModel.count();
+    return result;
+  }
 }
 
 export default new liveroomService();
